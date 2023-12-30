@@ -1,4 +1,9 @@
 import * as React from "react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -8,18 +13,20 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../services/Authentication";
 
 export default function RegisterScreen() {
+  const { setCustomer } = React.useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [values, setValues] = useState({
+  const [values, setValues] = React.useState({
     firstName: "",
     lastName: "",
-    username: "",
     email: "",
     password: "",
+    country: "",
+    city: "",
   });
 
   const handleSubmit = (event) => {
@@ -29,12 +36,13 @@ export default function RegisterScreen() {
     console.log({
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
-      username: data.get("username"),
       email: data.get("email"),
       password: data.get("password"),
+      city: data.get("city"),
+      country: data.get("country"),
     });
 
-    fetch("http://localhost:3000/auth/register", {
+    fetch("http://localhost:3000/customer/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,9 +51,10 @@ export default function RegisterScreen() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.status === "Success") {
-          navigate("/login");
+          setCustomer(data.user);
+          localStorage.setItem("token", data.token);
+          navigate("/");
         }
       })
       .catch((err) => console.log(err));
@@ -62,7 +71,7 @@ export default function RegisterScreen() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "#1DA1F2" }}></Avatar>
+        <Avatar sx={{ m: 1, bgcolor: "#FF0000" }}></Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
@@ -92,18 +101,6 @@ export default function RegisterScreen() {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                autoComplete="given-username"
-                name="username"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                autoFocus
-                onChange={(e) => setValues({ ...values, username: e.target.value })}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
                 required
                 fullWidth
                 id="email"
@@ -125,14 +122,54 @@ export default function RegisterScreen() {
                 onChange={(e) => setValues({ ...values, password: e.target.value })}
               />
             </Grid>
+            <Grid item xs={12}>
+              <FormControl sx={{ minWidth: 120 }}>
+                <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
+                <Select
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={values.country}
+                  label="country"
+                  onChange={(e) => setValues({ ...values, country: e.target.value })}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"Turkey"}>Turkey</MenuItem>
+                  <MenuItem value={"Germany"}>Germany</MenuItem>
+                  <MenuItem value={"America"}>America</MenuItem>
+                </Select>
+                <FormHelperText>Enter your country of residence</FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl sx={{ minWidth: 120 }}>
+                <InputLabel id="demo-simple-select-helper-label">City</InputLabel>
+                <Select
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={values.city}
+                  label="city"
+                  onChange={(e) => setValues({ ...values, city: e.target.value })}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"Bodrum"}>Bodrum</MenuItem>
+                  <MenuItem value={"Mugla"}>Mugla</MenuItem>
+                  <MenuItem value={"Antalya"}>Antalya</MenuItem>
+                </Select>
+                <FormHelperText>Enter your city of residence</FormHelperText>
+              </FormControl>
+            </Grid>
           </Grid>
           <Grid container justifyContent={"center"}>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2, background: "#1DA1F2" }}>
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2, background: "#FF0000" }}>
               Sign Up
             </Button>
           </Grid>
           <Grid container justifyContent="flex-end">
-            <Link href="/login" variant="body2" sx={{ color: "#1DA1F2" }}>
+            <Link href="/login" variant="body2" sx={{ color: "#FF0000" }}>
               Already have an account? Sign in
             </Link>
           </Grid>

@@ -12,7 +12,7 @@ import Container from "@mui/material/Container";
 import { AuthContext } from "../services/Authentication.jsx";
 
 export default function LoginScreen() {
-  const { setUser } = useContext(AuthContext);
+  const { setCustomer } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [values, setValues] = useState({
@@ -20,7 +20,7 @@ export default function LoginScreen() {
     password: "",
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
@@ -29,7 +29,7 @@ export default function LoginScreen() {
       password: data.get("password"),
     });
 
-    fetch("http://localhost:3000/customer/login", {
+    await fetch("http://localhost:3000/customer/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,9 +40,9 @@ export default function LoginScreen() {
       .then((data) => {
         console.log(data);
         if (data.status === "Success") {
+          setCustomer(data.user);
           localStorage.setItem("token", data.token);
-          setUser(data.user);
-          navigate("/home");
+          navigate("/");
         }
       })
       .catch((err) => console.log(err));
@@ -60,7 +60,7 @@ export default function LoginScreen() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "#1DA1F2" }}></Avatar>
+        <Avatar sx={{ m: 1, bgcolor: "#FF0000" }}></Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
@@ -95,14 +95,14 @@ export default function LoginScreen() {
               sx={{
                 mt: 2,
                 mb: 2,
-                background: "#1DA1F2",
+                background: "#FF0000",
               }}
             >
               Sign In
             </Button>
           </Grid>
           <Grid container justifyContent="flex-end">
-            <Link href="/register" variant="body2" color={"#1DA1F2"}>
+            <Link href="/register" variant="body2" color={"#FF0000"}>
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>

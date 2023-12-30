@@ -1,9 +1,11 @@
 import React from "react";
-import { Stack, Card, CardMedia, CardContent, Typography, CardActions } from "@mui/material";
+import { Stack, Card, CardMedia, CardContent, Typography, CardActions, Link } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import ratingCalculator from "../services/RatingCalculator";
+import { AuthContext } from "../services/Authentication";
 
-function HotelCard({ name, address, price, image, rating, commentsCount, memberPrice }) {
+function HotelCard({ name, address, price, image, rating, commentsCount, memberPrice, specialPrice }) {
+  const { customer } = React.useContext(AuthContext);
   return (
     <Card sx={{ maxWidth: 380, boxShadow: "none" }}>
       <CardMedia sx={{ height: 200, borderRadius: 2 }} image={image} title="Hotel" />
@@ -57,6 +59,23 @@ function HotelCard({ name, address, price, image, rating, commentsCount, memberP
           Taxes and fees are included.
         </Typography>
 
+        {specialPrice && (
+          <Typography
+            variant="body2"
+            color="#FFF"
+            sx={{
+              display: "flex",
+              width: "fit-content",
+              letterSpacing: "1px",
+              padding: "6px",
+              borderRadius: "8px",
+              marginTop: "12px",
+              backgroundColor: "#FF0000",
+            }}
+          >
+            42% discount
+          </Typography>
+        )}
         {memberPrice && (
           <Typography
             variant="body2"
@@ -82,28 +101,48 @@ function HotelCard({ name, address, price, image, rating, commentsCount, memberP
           </Typography>
         )}
       </CardContent>
-      {memberPrice && (
+      {memberPrice && customer ? (
         <Typography
           sx={{
+            display: "flex",
             maxWidth: "200px",
             marginLeft: "17%",
             marginBottom: "18px",
-            marginTop: "12px",
-            letterSpacing: "1px",
-            alignItems: "center",
             justifyContent: "center",
-            display: "flex",
             padding: "8px",
-            borderRadius: "16px",
-            border: "1px solid #000",
             fontWeight: "bold",
             color: "#1DA1F2",
-            cursor: "pointer",
           }}
-          variant="body2"
+          variant="body1"
         >
-          Login for member price
+          Member Price: {price - price * (10 / 100)} TL
         </Typography>
+      ) : (
+        memberPrice && (
+          <Link
+            href="/login"
+            sx={{
+              maxWidth: "200px",
+              marginLeft: "17%",
+              marginBottom: "18px",
+              marginTop: "12px",
+              letterSpacing: "1px",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+              padding: "8px",
+              borderRadius: "16px",
+              border: "1px solid #000",
+              fontWeight: "bold",
+              color: "#1DA1F2",
+              cursor: "pointer",
+              textDecoration: "none",
+            }}
+            variant="body2"
+          >
+            Login for member price
+          </Link>
+        )
       )}
     </Card>
   );

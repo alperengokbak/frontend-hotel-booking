@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { Container, Stack } from "@mui/material";
+import { Container } from "@mui/material";
 import { AuthContext } from "./services/Authentication";
 import { LoginAuthentication } from "./services/LoginCheck";
 import LoginScreen from "./pages/LoginScreen";
@@ -8,39 +8,45 @@ import RegisterScreen from "./pages/RegisterScreen";
 import Home from "./pages/Home";
 
 function App() {
-  /* const { user, setUser } = React.useContext(AuthContext);
+  const { customer, setCustomer } = React.useContext(AuthContext);
 
   const checkUser = async () => {
-    const user = await LoginAuthentication();
-    if (user) {
-      setUser(user);
+    const customer = await LoginAuthentication();
+    if (customer) {
+      setCustomer(customer);
     } else {
-      setUser(null);
+      setCustomer(null);
     }
   };
   React.useEffect(() => {
     checkUser();
-  }, []); */
+  }, [customer]);
 
-  /* if (user === undefined) {
-    return null;
-  } */
-  /*  if (user === null) {
-    return (
-      <Router>
-        <Routes>
-          <Route path="/login" element={<LoginScreen />} />
-          <Route path="/register" element={<RegisterScreen />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-      </Router>
-    );
-  } */
   return (
-    <Container maxWidth="xl">
+    <Container
+      maxWidth="xl"
+      sx={{
+        overflow: "scroll",
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+        scrollbarWidth: "none",
+      }}
+    >
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          {customer ? (
+            <>
+              <Route path="/" element={<Home />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </>
+          ) : (
+            <>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<LoginScreen />} />
+              <Route path="/register" element={<RegisterScreen />} />
+            </>
+          )}
         </Routes>
       </Router>
     </Container>

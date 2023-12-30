@@ -1,12 +1,14 @@
 import React from "react";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, Link } from "@mui/material";
 import axios from "axios";
+import { AuthContext } from "../services/Authentication";
 import GuestRoomSelector from "../components/GuestRoomSelector";
 import DestinationSelector from "../components/DestinationSelector";
 import DateSelector from "../components/DateSelector";
 import HotelCard from "../components/HotelCard";
 
 function Home() {
+  const { setCustomer, customer } = React.useContext(AuthContext);
   const [hotelCard, setHotelCard] = React.useState([]);
   const token = localStorage.getItem("token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -20,7 +22,6 @@ function Home() {
       });
       if (response.status === 200) {
         const jsonData = response.data;
-        console.log(jsonData);
         setHotelCard(jsonData);
       } else {
         console.error("Failed to fetch data");
@@ -60,20 +61,49 @@ function Home() {
             .com
           </Typography>
         </Stack>
-        <Typography
-          variant="h6"
-          sx={{
-            cursor: "pointer",
-            color: "#FF0000",
-            fontWeight: "bold",
-            marginRight: 12,
-            ":hover": {
-              color: "#000",
-            },
-          }}
-        >
-          Sign In
-        </Typography>
+        {customer ? (
+          <Stack>
+            <Typography>
+              Welcome, {customer.firstName} {customer.lastName}
+            </Typography>
+            <Typography
+              onClick={() => {
+                setCustomer(null);
+                localStorage.removeItem("token");
+              }}
+              variant="h6"
+              sx={{
+                cursor: "pointer",
+                color: "#FF0000",
+                fontWeight: "bold",
+                marginRight: 12,
+                textDecoration: "none",
+                ":hover": {
+                  color: "#000",
+                },
+              }}
+            >
+              Sign Out
+            </Typography>
+          </Stack>
+        ) : (
+          <Link
+            href="/login"
+            variant="h6"
+            sx={{
+              cursor: "pointer",
+              color: "#FF0000",
+              fontWeight: "bold",
+              marginRight: 12,
+              textDecoration: "none",
+              ":hover": {
+                color: "#000",
+              },
+            }}
+          >
+            Sign In
+          </Link>
+        )}
       </Stack>
       <Typography variant="h5">Where ?</Typography>
       <Stack
@@ -146,6 +176,7 @@ function Home() {
                 rating={post.rating}
                 commentsCount={post.commentsCount}
                 memberPrice={post.memberPrice}
+                specialPrice={post.specialPrice}
               />
             ))}
           </Stack>
