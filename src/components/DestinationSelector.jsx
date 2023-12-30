@@ -11,7 +11,8 @@ function DestinationSelectorComponent({ onChange, value }) {
   return (
     <TextField
       id="destination"
-      label="Destination"
+      placeholder="Where are you going?"
+      label="City"
       value={value}
       onChange={handleInputChange}
       InputProps={{

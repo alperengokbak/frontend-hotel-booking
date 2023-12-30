@@ -2,17 +2,13 @@ import React from "react";
 import { TextField, Stack } from "@mui/material";
 
 function DateSelectorComponent({ onChange, value }) {
-  const handleInputChange = (event) => {
-    onChange(event.target.value);
-  };
-
   return (
     <TextField
       id="date"
-      label="Select Date"
+      label="Dates"
       type="date"
       value={value}
-      onChange={handleInputChange}
+      onChange={onChange}
       InputLabelProps={{
         shrink: true,
       }}

@@ -28,12 +28,11 @@ function GuestRoomSelectorComponent({ onChange, selectedGuests, selectedRooms })
           width: "200px",
         }}
       >
-        <InputLabel id="guests-label">Guests</InputLabel>
         <Select labelId="guests-label" id="guests-select" value={selectedGuests} onChange={handleGuestsChange}>
           <MenuItem value={1}>1 Guest</MenuItem>
           <MenuItem value={2}>2 Guests</MenuItem>
-          <MenuItem value={2}>3 Guests</MenuItem>
-          <MenuItem value={2}>4 Guests</MenuItem>
+          <MenuItem value={3}>3 Guests</MenuItem>
+          <MenuItem value={4}>4 Guests</MenuItem>
         </Select>
       </FormControl>
 
@@ -42,12 +41,11 @@ function GuestRoomSelectorComponent({ onChange, selectedGuests, selectedRooms })
           width: "200px",
         }}
       >
-        <InputLabel id="rooms-label">Rooms</InputLabel>
         <Select labelId="rooms-label" id="rooms-select" value={selectedRooms} onChange={handleRoomsChange}>
           <MenuItem value={1}>1 Room</MenuItem>
           <MenuItem value={2}>2 Rooms</MenuItem>
-          <MenuItem value={2}>4 Rooms</MenuItem>
-          <MenuItem value={2}>3 Rooms</MenuItem>
+          <MenuItem value={3}>3 Rooms</MenuItem>
+          <MenuItem value={4}>4 Rooms</MenuItem>
         </Select>
       </FormControl>
     </Stack>

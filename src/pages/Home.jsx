@@ -5,7 +5,6 @@ import GuestRoomSelector from "../components/GuestRoomSelector";
 import DestinationSelector from "../components/DestinationSelector";
 import DateSelector from "../components/DateSelector";
 import HotelCard from "../components/HotelCard";
-import { Image } from "@mui/icons-material";
 
 function Home() {
   const [hotelCard, setHotelCard] = React.useState([]);
@@ -122,7 +121,7 @@ function Home() {
             Opportunities are shown for the following date range:
           </Typography>
           <Typography variant="body1" fontWeight="bold">
-            Dec 22 - Dec 24
+            Dec 30 - Dec 31
           </Typography>
         </Stack>
         <Stack

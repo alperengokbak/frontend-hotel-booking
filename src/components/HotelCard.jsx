@@ -1,18 +1,19 @@
 import React from "react";
-import { Card, CardMedia, CardContent, Typography, Rating, CardActions } from "@mui/material";
+import { Stack, Card, CardMedia, CardContent, Typography, CardActions } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import ratingCalculator from "../services/RatingCalculator";
 
 function HotelCard({ name, address, price, image, rating, commentsCount, memberPrice }) {
-  const newRating = rating / 20;
   return (
     <Card sx={{ maxWidth: 380, boxShadow: "none" }}>
       <CardMedia sx={{ height: 200, borderRadius: 2 }} image={image} title="Hotel" />
       <CardActions
         sx={{
           marginTop: "12px",
+          marginLeft: "4px",
         }}
       >
-        <Rating name="read-only" value={newRating} readOnly />
+        {ratingCalculator({ rating })}
         <Typography
           variant="body2"
           color="text.primary"
@@ -21,7 +22,7 @@ function HotelCard({ name, address, price, image, rating, commentsCount, memberP
             fontWeight: "bold",
           }}
         >
-          (Comment {commentsCount})
+          ({commentsCount} Comment)
         </Typography>
       </CardActions>
       <CardContent>
@@ -31,9 +32,21 @@ function HotelCard({ name, address, price, image, rating, commentsCount, memberP
         <Typography variant="body2" color="text.secondary">
           {address}
         </Typography>
-        <Typography variant="h5" color="text.primary">
-          {price * 2} TL
-        </Typography>
+        <Stack flexDirection="row" alignItems="center">
+          <Typography variant="h5" color="text.primary">
+            {price * 2} TL
+          </Typography>
+          <Typography
+            variant="h6"
+            color="text.secondary"
+            sx={{
+              textDecoration: "line-through",
+              marginLeft: "8px",
+            }}
+          >
+            {price * 3} TL
+          </Typography>
+        </Stack>
         <Typography variant="body2" color="text.secondary">
           For 2 nights
         </Typography>
@@ -80,7 +93,7 @@ function HotelCard({ name, address, price, image, rating, commentsCount, memberP
             alignItems: "center",
             justifyContent: "center",
             display: "flex",
-            padding: "4px",
+            padding: "8px",
             borderRadius: "16px",
             border: "1px solid #000",
             fontWeight: "bold",
