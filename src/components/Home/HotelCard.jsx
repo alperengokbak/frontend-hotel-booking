@@ -1,14 +1,23 @@
 import React from "react";
 import { Stack, Card, CardMedia, CardContent, Typography, CardActions, Link } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import ratingCalculator from "../services/RatingCalculator";
-import { AuthContext } from "../services/Authentication";
+import ratingCalculator from "../../services/RatingCalculator";
+import { AuthContext } from "../../services/Authentication";
 
-function HotelCard({ name, address, price, image, rating, commentsCount, memberPrice, specialPrice }) {
+function HotelCard({ id, name, city, country, price, image, rating, commentsCount, memberPrice, specialPrice }) {
   const { customer } = React.useContext(AuthContext);
+  const navigate = useNavigate();
   return (
     <Card sx={{ maxWidth: 380, boxShadow: "none" }}>
-      <CardMedia sx={{ height: 200, borderRadius: 2 }} image={image} title="Hotel" />
+      <CardMedia
+        sx={{ height: 200, borderRadius: 2, cursor: "pointer" }}
+        image={image}
+        title="Hotel"
+        onClick={() => {
+          navigate(`/hotel/${id}`);
+        }}
+      />
       <CardActions
         sx={{
           marginTop: "12px",
@@ -28,11 +37,21 @@ function HotelCard({ name, address, price, image, rating, commentsCount, memberP
         </Typography>
       </CardActions>
       <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
+        <Typography
+          gutterBottom
+          variant="h6"
+          component="div"
+          sx={{
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            navigate(`/hotel/${id}`);
+          }}
+        >
           {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {address}
+          {city}/{country}
         </Typography>
         <Stack flexDirection="row" alignItems="center">
           <Typography variant="h5" color="text.primary">

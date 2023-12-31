@@ -1,11 +1,19 @@
 import React from "react";
-import { Stack, Typography, Link } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+
+// Axios
 import axios from "axios";
+
+// Context
 import { AuthContext } from "../services/Authentication";
-import GuestRoomSelector from "../components/GuestRoomSelector";
-import DestinationSelector from "../components/DestinationSelector";
-import DateSelector from "../components/DateSelector";
-import HotelCard from "../components/HotelCard";
+
+// Components
+import HotelCard from "../components/Home/HotelCard";
+import HomePageHeader from "../components/Home/HomePageHeader";
+import HomePageSearchComponent from "../components/Home/HomePageSearchComponent";
+
+// TODO: Google Maps API ekle
+// TODO: Google giriş ekle
 
 function Home() {
   const { setCustomer, customer } = React.useContext(AuthContext);
@@ -37,107 +45,9 @@ function Home() {
 
   return (
     <Stack>
-      <Stack
-        className="header"
-        sx={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "18px",
-        }}
-      >
-        <Stack direction="row" alignItems="flex-end">
-          <img
-            src="https://static.vecteezy.com/system/resources/thumbnails/006/240/761/small/initial-letter-b-tech-logo-design-template-element-eps10-vector.jpg"
-            style={{
-              width: "50px",
-              height: "50px",
-              marginRight: "8px",
-              borderRadius: "50%",
-            }}
-          />
-          <Typography variant="h3">Hotels</Typography>
-          <Typography padding="4px" variant="body1">
-            .com
-          </Typography>
-        </Stack>
-        {customer ? (
-          <Stack>
-            <Typography>
-              Welcome, {customer.firstName} {customer.lastName}
-            </Typography>
-            <Typography
-              onClick={() => {
-                setCustomer(null);
-                localStorage.removeItem("token");
-              }}
-              variant="h6"
-              sx={{
-                cursor: "pointer",
-                color: "#FF0000",
-                fontWeight: "bold",
-                marginRight: 12,
-                textDecoration: "none",
-                ":hover": {
-                  color: "#000",
-                },
-              }}
-            >
-              Sign Out
-            </Typography>
-          </Stack>
-        ) : (
-          <Link
-            href="/login"
-            variant="h6"
-            sx={{
-              cursor: "pointer",
-              color: "#FF0000",
-              fontWeight: "bold",
-              marginRight: 12,
-              textDecoration: "none",
-              ":hover": {
-                color: "#000",
-              },
-            }}
-          >
-            Sign In
-          </Link>
-        )}
-      </Stack>
-      <Typography variant="h5">Where ?</Typography>
-      <Stack
-        sx={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: "18px",
-        }}
-      >
-        <DestinationSelector />
-        <DateSelector />
-        <GuestRoomSelector />
-        <Typography
-          variant="body1"
-          sx={{
-            cursor: "pointer",
-            color: "#FFF",
-            fontWeight: "bold",
-            marginRight: "18px",
-            backgroundColor: "#FF0000",
-            padding: "8px",
-            borderRadius: "12px",
-            ":hover": {
-              color: "#000",
-            },
-          }}
-          onClick={() => {
-            console.log("Search");
-          }}
-        >
-          Search
-        </Typography>
-      </Stack>
+      <HomePageHeader customer={customer} setCustomer={setCustomer} />
+      <Typography variant="h5">Where to ?</Typography>
+      <HomePageSearchComponent />
       <Stack
         sx={{
           marginTop: "24px",

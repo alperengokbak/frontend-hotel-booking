@@ -1,23 +1,15 @@
 import React from "react";
-import { Stack } from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
 
-function GuestRoomSelectorComponent({ onChange, selectedGuests, selectedRooms }) {
+// Material UI Components
+import { Stack, FormControl, Select, MenuItem } from "@mui/material";
+
+export default function GuestRoomSelector({ setSelectedGuests, setSelectedRooms, selectedGuests, selectedRooms }) {
   const handleGuestsChange = (event) => {
-    onChange({
-      selectedGuests: event.target.value,
-      selectedRooms,
-    });
+    setSelectedGuests(event.target.value);
   };
 
   const handleRoomsChange = (event) => {
-    onChange({
-      selectedGuests,
-      selectedRooms: event.target.value,
-    });
+    setSelectedRooms(event.target.value);
   };
 
   return (
@@ -51,26 +43,3 @@ function GuestRoomSelectorComponent({ onChange, selectedGuests, selectedRooms })
     </Stack>
   );
 }
-
-function GuestRoomSelector() {
-  const [selectedOptions, setSelectedOptions] = React.useState({
-    selectedGuests: 1,
-    selectedRooms: 1,
-  });
-
-  const handleOptionsChange = (newOptions) => {
-    setSelectedOptions(newOptions);
-  };
-
-  return (
-    <form>
-      <GuestRoomSelectorComponent
-        onChange={handleOptionsChange}
-        selectedGuests={selectedOptions.selectedGuests}
-        selectedRooms={selectedOptions.selectedRooms}
-      />
-    </form>
-  );
-}
-
-export default GuestRoomSelector;
