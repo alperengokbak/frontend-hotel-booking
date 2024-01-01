@@ -12,7 +12,6 @@ import HotelCard from "../components/Home/HotelCard";
 import HomePageHeader from "../components/Home/HomePageHeader";
 import HomePageSearchComponent from "../components/Home/HomePageSearchComponent";
 
-// TODO: Google Maps API ekle
 // TODO: Google giriş ekle
 
 function Home() {
