@@ -38,10 +38,11 @@ function HomePageSearchComponent() {
         setHotel(response.data);
         navigate("/search", { state: { hotel: response.data } });
       } else {
-        console.error("Failed to post tweet");
+        console.error("Failed to fetch data");
       }
     } catch (error) {
       console.error("An error occurred:", error);
+      alert("An error occurred", error);
     }
   };
   return (

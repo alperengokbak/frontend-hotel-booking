@@ -7,7 +7,7 @@ import ratingCalculator from "../../services/RatingCalculator";
 import { Stack, Typography, ListItem, List, ListItemIcon, Grid } from "@mui/material";
 
 // Contexts
-import { AuthContext } from "../../services/Authentication";
+import { AuthContext } from "../../context/Authentication";
 
 // Material UI Icons
 import WifiIcon from "@mui/icons-material/Wifi";
@@ -18,7 +18,7 @@ import PoolIcon from "@mui/icons-material/Pool";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 
 function HotelDetailPart({ hotelDetail, rating }) {
-  const { customer } = React.useContext(AuthContext);
+  const { customer, googleUser } = React.useContext(AuthContext);
   const featureData = [
     { icon: <RestaurantIcon /> },
     { icon: <PoolIcon /> },
@@ -102,7 +102,7 @@ function HotelDetailPart({ hotelDetail, rating }) {
           Taxes and fees are included.
         </Typography>
       </Stack>
-      {hotelDetail?.hotel.memberPrice && customer ? (
+      {hotelDetail?.hotel.memberPrice && (customer || googleUser) ? (
         <Typography
           sx={{
             width: "fit-content",

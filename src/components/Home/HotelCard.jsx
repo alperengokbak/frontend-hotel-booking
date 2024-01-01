@@ -3,10 +3,10 @@ import { Stack, Card, CardMedia, CardContent, Typography, CardActions, Link } fr
 import { useNavigate } from "react-router-dom";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import ratingCalculator from "../../services/RatingCalculator";
-import { AuthContext } from "../../services/Authentication";
+import { AuthContext } from "../../context/Authentication";
 
 function HotelCard({ id, name, city, country, price, image, rating, commentsCount, memberPrice, specialPrice }) {
-  const { customer } = React.useContext(AuthContext);
+  const { customer, googleUser } = React.useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <Card sx={{ maxWidth: 380, boxShadow: "none" }}>
@@ -120,7 +120,7 @@ function HotelCard({ id, name, city, country, price, image, rating, commentsCoun
           </Typography>
         )}
       </CardContent>
-      {memberPrice && customer ? (
+      {memberPrice && (customer || googleUser) ? (
         <Typography
           sx={{
             display: "flex",

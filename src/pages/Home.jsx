@@ -5,17 +5,15 @@ import { Stack, Typography } from "@mui/material";
 import axios from "axios";
 
 // Context
-import { AuthContext } from "../services/Authentication";
+import { AuthContext } from "../context/Authentication";
 
 // Components
 import HotelCard from "../components/Home/HotelCard";
 import HomePageHeader from "../components/Home/HomePageHeader";
 import HomePageSearchComponent from "../components/Home/HomePageSearchComponent";
 
-// TODO: Google giriş ekle
-
 function Home() {
-  const { setCustomer, customer } = React.useContext(AuthContext);
+  const { setCustomer, customer, setGoogleUser, googleUser } = React.useContext(AuthContext);
   const [hotelCard, setHotelCard] = React.useState([]);
   const token = localStorage.getItem("token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -44,7 +42,12 @@ function Home() {
 
   return (
     <Stack>
-      <HomePageHeader customer={customer} setCustomer={setCustomer} />
+      <HomePageHeader
+        customer={customer}
+        setCustomer={setCustomer}
+        setGoogleUser={setGoogleUser}
+        googleUser={googleUser}
+      />
       <Typography variant="h5">Where to ?</Typography>
       <HomePageSearchComponent />
       <Stack

@@ -14,7 +14,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../services/Authentication";
+import { AuthContext } from "../context/Authentication";
 
 export default function RegisterScreen() {
   const { setCustomer } = React.useContext(AuthContext);

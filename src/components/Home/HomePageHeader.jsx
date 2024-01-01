@@ -4,7 +4,9 @@ import React from "react";
 // Material UI Components
 import { Stack, Typography, Link } from "@mui/material";
 
-function HomePageHeader({ customer, setCustomer }) {
+function HomePageHeader({ customer, setCustomer, setGoogleUser, googleUser }) {
+  const customerlabel = `Welcome, ${customer?.firstName} ${customer?.lastName}`;
+  const googleUserLabel = `Welcome, ${googleUser?.given_name} ${googleUser?.family_name}`;
   return (
     <Stack
       className="header"
@@ -39,15 +41,18 @@ function HomePageHeader({ customer, setCustomer }) {
           .com
         </Typography>
       </Stack>
-      {customer ? (
+      {customer || googleUser ? (
         <Stack>
           <Typography>
-            Welcome, {customer.firstName} {customer.lastName}
+            {customer ? customerlabel : null}
+            {googleUser ? googleUserLabel : null}
           </Typography>
           <Typography
             onClick={() => {
               setCustomer(null);
+              setGoogleUser(null);
               localStorage.removeItem("token");
+              localStorage.removeItem("googleUser");
             }}
             variant="h6"
             sx={{

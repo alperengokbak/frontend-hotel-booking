@@ -13,7 +13,13 @@ import HotelInfo from "../components/SearchResultPage/HotelInfo";
 function SearchResultPage() {
   const location = useLocation();
   const hotel = location.state.hotel;
-  console.log(hotel);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    if (hotel.status === 400) {
+      setError("Error: " + hotel.error);
+    }
+  }, [hotel]);
 
   return (
     <Stack>
@@ -32,6 +38,7 @@ function SearchResultPage() {
           specialPrice={hotel.specialPrice}
           commentsCount={hotel.commentsCount}
           features={hotel.features}
+          error={error}
         />
       ))}
     </Stack>

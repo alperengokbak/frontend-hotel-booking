@@ -1,5 +1,12 @@
+// React and react router
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
+// Google Login
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+
+// Material UI Components
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,11 +16,27 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { AuthContext } from "../services/Authentication.jsx";
+
+// Context
+import { AuthContext } from "../context/Authentication.jsx";
 
 export default function LoginScreen() {
-  const { setCustomer } = useContext(AuthContext);
+  const { setCustomer, setGoogleUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const handleLoginSuccess = (credentialResponse) => {
+    const credentialResponseDecoded = jwtDecode(credentialResponse.credential);
+
+    // Save user data to localStorage
+    localStorage.setItem("googleUser", JSON.stringify(credentialResponseDecoded));
+
+    setGoogleUser(credentialResponseDecoded);
+    navigate("/");
+  };
+
+  const handleLoginError = () => {
+    console.log("Login Failed");
+  };
 
   const [values, setValues] = useState({
     email: "",
@@ -38,7 +61,6 @@ export default function LoginScreen() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.status === "Success") {
           setCustomer(data.user);
           localStorage.setItem("token", data.token);
@@ -60,6 +82,7 @@ export default function LoginScreen() {
           alignItems: "center",
         }}
       >
+        <GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginError} />
         <Avatar sx={{ m: 1, bgcolor: "#FF0000" }}></Avatar>
         <Typography component="h1" variant="h5">
           Sign in

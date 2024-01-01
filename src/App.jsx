@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { Container } from "@mui/material";
 
 // Context
-import { AuthContext } from "./services/Authentication";
+import { AuthContext } from "./context/Authentication";
 
 // Services
 import { LoginAuthentication } from "./services/LoginCheck";
@@ -21,7 +21,7 @@ import HotelDetail from "./pages/HotelDetail";
 import SearchResultPage from "./pages/SearchResultPage";
 
 function App() {
-  const { customer, setCustomer } = React.useContext(AuthContext);
+  const { customer, googleUser, setGoogleUser, setCustomer } = React.useContext(AuthContext);
 
   const checkUser = async () => {
     const loggedInCustomer = await LoginAuthentication();
@@ -31,6 +31,17 @@ function App() {
       setCustomer(null);
     }
   };
+
+  React.useEffect(() => {
+    if (!googleUser) {
+      const storedUserData = localStorage.getItem("googleUser");
+      if (storedUserData) {
+        const storedUserDataDecoded = JSON.parse(storedUserData);
+        setGoogleUser(storedUserDataDecoded);
+      }
+    }
+  }, [googleUser]);
+
   React.useEffect(() => {
     if (!customer) {
       checkUser();
@@ -50,7 +61,7 @@ function App() {
     >
       <Router>
         <Routes>
-          {customer ? (
+          {customer || googleUser ? (
             <>
               <Route path="/" element={<Home />} />
               <Route path="*" element={<Navigate to="/" />} />
