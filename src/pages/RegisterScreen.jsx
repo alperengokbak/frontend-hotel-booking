@@ -42,7 +42,7 @@ export default function RegisterScreen() {
       country: data.get("country"),
     });
 
-    fetch("https://hotelbooking-api/customer/register", {
+    fetch("https://booking-hotel-api.onrender.com/customer/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
