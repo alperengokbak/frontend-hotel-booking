@@ -53,7 +53,7 @@ export default function LoginScreen() {
       password: data.get("password"),
     });
 
-    await fetch("http://localhost:3000/customer/login", {
+    await fetch("https://hotelbooking-api/customer/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

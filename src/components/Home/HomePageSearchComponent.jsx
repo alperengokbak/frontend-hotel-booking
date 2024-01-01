@@ -26,7 +26,7 @@ function HomePageSearchComponent() {
 
   const handleSearchHotel = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/hotel/search", {
+      const response = await axios.get("https://hotelbooking-api/hotel/search", {
         params: {
           city: destination,
           guestCount: selectedGuests,

@@ -20,7 +20,7 @@ function Home() {
 
   const getHotelsForMainPage = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/hotel/weekend`, {
+      const response = await axios.get(`https://hotelbooking-api/hotel/weekend`, {
         params: {
           country: "Turkey",
         },

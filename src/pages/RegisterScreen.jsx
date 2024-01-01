@@ -42,7 +42,7 @@ export default function RegisterScreen() {
       country: data.get("country"),
     });
 
-    fetch("http://localhost:3000/customer/register", {
+    fetch("https://hotelbooking-api/customer/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

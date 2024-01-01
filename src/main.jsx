@@ -15,6 +15,11 @@ import { AuthContextProvider } from "./context/Authentication.jsx";
 // Google Login
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+// Disable React DevTools in production
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+
+if (process.env.NODE_ENV === "production") disableReactDevTools();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={MainTheme}>
     <AuthContextProvider>

@@ -2,7 +2,7 @@ export const LoginAuthentication = async () => {
   const token = localStorage.getItem("token");
   if (token) {
     try {
-      const response = await fetch("http://localhost:3000/customer/check", {
+      const response = await fetch("https://hotelbooking-api/customer/check", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
