@@ -16,6 +16,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
 
 // Context
 import { AuthContext } from "../context/Authentication.jsx";
@@ -82,12 +83,14 @@ export default function LoginScreen() {
           alignItems: "center",
         }}
       >
-        <GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginError} />
         <Avatar sx={{ m: 1, bgcolor: "#FF0000" }}></Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Stack alignItems="center">
+            <GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginError} />
+          </Stack>
           <TextField
             margin="normal"
             required
