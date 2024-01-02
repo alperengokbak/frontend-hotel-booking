@@ -23,24 +23,37 @@ function SearchResultPage() {
 
   return (
     <Stack>
-      <h2>Search Results</h2>
-      {hotel.hotelsWithCommentsCount.map((hotel) => (
-        <HotelInfo
-          key={hotel.id}
-          id={hotel.id}
-          name={hotel.name}
-          city={hotel.city}
-          country={hotel.country}
-          price={hotel.price}
-          rating={hotel.rating}
-          image={hotel.image}
-          memberPrice={hotel.memberPrice}
-          specialPrice={hotel.specialPrice}
-          commentsCount={hotel.commentsCount}
-          features={hotel.features}
-          error={error}
-        />
-      ))}
+      {hotel ? (
+        <Stack
+          sx={{
+            marginTop: "24px",
+            padding: "18px",
+          }}
+        >
+          <h3>Unfortunately no hotels matching your search criteria were found...</h3>
+        </Stack>
+      ) : (
+        <>
+          <h2>Search Results</h2>
+          {hotel.hotelsWithCommentsCount.map((hotel) => (
+            <HotelInfo
+              key={hotel.id}
+              id={hotel.id}
+              name={hotel.name}
+              city={hotel.city}
+              country={hotel.country}
+              price={hotel.price}
+              rating={hotel.rating}
+              image={hotel.image}
+              memberPrice={hotel.memberPrice}
+              specialPrice={hotel.specialPrice}
+              commentsCount={hotel.commentsCount}
+              features={hotel.features}
+              error={error}
+            />
+          ))}
+        </>
+      )}
     </Stack>
   );
 }
