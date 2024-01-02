@@ -14,7 +14,7 @@ import HomePageSearchComponent from "../components/Home/HomePageSearchComponent"
 
 function Home() {
   const { setCustomer, customer, setGoogleUser, googleUser } = React.useContext(AuthContext);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = React.useState(true);
   const [hotelCard, setHotelCard] = React.useState([]);
   const token = localStorage.getItem("token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
