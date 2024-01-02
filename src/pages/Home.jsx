@@ -14,6 +14,7 @@ import HomePageSearchComponent from "../components/Home/HomePageSearchComponent"
 
 function Home() {
   const { setCustomer, customer, setGoogleUser, googleUser } = React.useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   const [hotelCard, setHotelCard] = React.useState([]);
   const token = localStorage.getItem("token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -28,6 +29,7 @@ function Home() {
       if (response.status === 200) {
         const jsonData = response.data;
         setHotelCard(jsonData);
+        setLoading(false);
       } else {
         console.error("Failed to fetch data");
       }
@@ -89,6 +91,7 @@ function Home() {
                 commentsCount={post.commentsCount}
                 memberPrice={post.memberPrice}
                 specialPrice={post.specialPrice}
+                loading={loading}
               />
             ))}
           </Stack>
