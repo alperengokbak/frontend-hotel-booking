@@ -80,7 +80,7 @@ MyDreamHotels is a web application for booking hotels, offering a seamless exper
 
 ## Folder Structure
 
-- `backend`: Node.js backend with Prisma ORM.
+- `backend`: Node.js backend with Prisma ORM. [You can look backend code from this link.](https://github.com/alperengokbak/backend-hotel-booking?tab=readme-ov-file#getting-started)
 - `frontend`: React.js frontend.
 - `context`: React context providers.
 - `services`: Utility functions and services.
