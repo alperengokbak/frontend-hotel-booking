@@ -53,7 +53,11 @@ MyDreamHotels is a web application for booking hotels, offering a seamless exper
    npm install
    ```
 
+   </br>
+
    - Create a `.env` file based on `.env.example` and add your database connection details. Don't forget to put **VITE** in front of the variables.
+
+   </br>
 
    ```bash
    npx prisma migrate dev (npm run migrate)
@@ -80,7 +84,7 @@ MyDreamHotels is a web application for booking hotels, offering a seamless exper
 
 ## Folder Structure
 
-- `backend`: Node.js backend with Prisma ORM. [You can look backend code from this link.](https://github.com/alperengokbak/backend-hotel-booking?tab=readme-ov-file#getting-started)
+- `backend`: Node.js backend with Prisma ORM. [You can look backend code from this link.](https://github.com/alperengokbak/backend-hotel-booking)
 - `frontend`: React.js frontend.
 - `context`: React context providers.
 - `services`: Utility functions and services.
