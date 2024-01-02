@@ -36,7 +36,7 @@ function HomePageHeader({ customer, setCustomer, setGoogleUser, googleUser }) {
             borderRadius: "50%",
           }}
         />
-        <Typography variant="h3">Hotels</Typography>
+        <Typography variant="h3">MyDreamHotels</Typography>
         <Typography padding="4px" variant="body1">
           .com
         </Typography>
