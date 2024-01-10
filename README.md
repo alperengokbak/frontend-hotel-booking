@@ -115,4 +115,4 @@ MyDreamHotels is a web application for booking hotels, offering a seamless exper
 
 ## Screenshots And Video
 
-### Coming Soon
+[Introductory Video](https://youtu.be/SRnzqtjv-tE)
