@@ -6,6 +6,9 @@ import { useParams } from "react-router-dom";
 import HotelMap from "../components/HotelDetail/HotelMap";
 import HotelDetailPart from "../components/HotelDetail/HotelDetailPart";
 
+// Context
+import { AuthContext } from "../context/Authentication";
+
 // Material UI Components
 import { Stack } from "@mui/material";
 
@@ -13,6 +16,7 @@ import { Stack } from "@mui/material";
 import axios from "axios";
 
 function HotelDetail() {
+  const { isDesktop } = React.useContext(AuthContext);
   const { id } = useParams();
   const [hotelDetail, setHotelDetail] = React.useState(null);
   const rating = hotelDetail?.hotel.rating;
@@ -36,7 +40,7 @@ function HotelDetail() {
   }, []);
 
   return (
-    <Stack flexDirection="row" justifyContent="space-between">
+    <Stack flexDirection={isDesktop ? "row" : "column"} justifyContent="space-between">
       <HotelDetailPart hotelDetail={hotelDetail} rating={rating} />
       <HotelMap hotelDetail={hotelDetail} />
     </Stack>

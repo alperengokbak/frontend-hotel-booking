@@ -13,7 +13,7 @@ import HomePageHeader from "../components/Home/HomePageHeader";
 import HomePageSearchComponent from "../components/Home/HomePageSearchComponent";
 
 function Home() {
-  const { setCustomer, customer, setGoogleUser, googleUser } = React.useContext(AuthContext);
+  const { setCustomer, customer, setGoogleUser, googleUser, isDesktop } = React.useContext(AuthContext);
   const [loading, setLoading] = React.useState(true);
   const [hotelCard, setHotelCard] = React.useState([]);
   const token = localStorage.getItem("token");
@@ -50,7 +50,9 @@ function Home() {
         setGoogleUser={setGoogleUser}
         googleUser={googleUser}
       />
-      <Typography variant="h5">Where to ?</Typography>
+      <Typography variant={isDesktop ? "h5" : "h6"} margin={isDesktop ? "0px" : "12px 0 20px 0"}>
+        Where to ?
+      </Typography>
       <HomePageSearchComponent />
       <Stack
         sx={{
@@ -76,7 +78,7 @@ function Home() {
             padding: "18px",
           }}
         >
-          <Stack flexDirection="row" justifyContent="space-around" width="100%">
+          <Stack flexDirection={isDesktop ? "row" : "column"} justifyContent="space-around" width="100%">
             {hotelCard.map((post) => (
               <HotelCard
                 key={post.id}

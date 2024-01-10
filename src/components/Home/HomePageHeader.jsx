@@ -1,12 +1,16 @@
 // React
 import React from "react";
 
+// Context
+import { AuthContext } from "../../context/Authentication";
+
 // Material UI Components
 import { Stack, Typography, Link } from "@mui/material";
 
 function HomePageHeader({ customer, setCustomer, setGoogleUser, googleUser }) {
   const customerlabel = `Welcome, ${customer?.firstName} ${customer?.lastName}`;
   const googleUserLabel = `Welcome, ${googleUser?.given_name} ${googleUser?.family_name}`;
+  const { isDesktop } = React.useContext(AuthContext);
   return (
     <Stack
       className="header"
@@ -14,7 +18,8 @@ function HomePageHeader({ customer, setCustomer, setGoogleUser, googleUser }) {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "18px",
+        padding: isDesktop ? "18px" : "0px",
+        width: isDesktop ? "100%" : "420px",
       }}
     >
       <Stack
@@ -30,14 +35,14 @@ function HomePageHeader({ customer, setCustomer, setGoogleUser, googleUser }) {
         <img
           src="https://static.vecteezy.com/system/resources/thumbnails/006/240/761/small/initial-letter-b-tech-logo-design-template-element-eps10-vector.jpg"
           style={{
-            width: "50px",
-            height: "50px",
+            width: isDesktop ? "50px" : "40px",
+            height: isDesktop ? "50px" : "40px",
             marginRight: "8px",
             borderRadius: "50%",
           }}
         />
-        <Typography variant="h3">MyDreamHotels</Typography>
-        <Typography padding="4px" variant="body1">
+        <Typography variant={isDesktop ? "h3" : "h5"}>MyDreamHotels</Typography>
+        <Typography padding="4px" variant={isDesktop ? "body1" : "body2"}>
           .com
         </Typography>
       </Stack>
@@ -54,7 +59,7 @@ function HomePageHeader({ customer, setCustomer, setGoogleUser, googleUser }) {
               localStorage.removeItem("token");
               localStorage.removeItem("googleUser");
             }}
-            variant="h6"
+            variant={isDesktop ? "h6" : "body2"}
             sx={{
               cursor: "pointer",
               color: "#FF0000",
@@ -72,7 +77,7 @@ function HomePageHeader({ customer, setCustomer, setGoogleUser, googleUser }) {
       ) : (
         <Link
           href="/login"
-          variant="h6"
+          variant={isDesktop ? "h6" : "body2"}
           sx={{
             cursor: "pointer",
             color: "#FF0000",

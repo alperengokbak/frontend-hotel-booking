@@ -18,7 +18,7 @@ import PoolIcon from "@mui/icons-material/Pool";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 
 function HotelDetailPart({ hotelDetail, rating }) {
-  const { customer, googleUser } = React.useContext(AuthContext);
+  const { customer, googleUser, isDesktop } = React.useContext(AuthContext);
   const featureData = [
     { icon: <RestaurantIcon /> },
     { icon: <PoolIcon /> },
@@ -29,7 +29,9 @@ function HotelDetailPart({ hotelDetail, rating }) {
   ];
   return (
     <Stack>
-      <Typography variant="h3">{hotelDetail?.hotel.name}</Typography>
+      <Typography variant={isDesktop ? "h3" : "h4"} fontWeight={isDesktop ? "400px" : "bold"}>
+        {hotelDetail?.hotel.name}
+      </Typography>
       <Typography variant="h5" marginBottom={2}>
         {hotelDetail?.hotel.description}
       </Typography>
@@ -52,14 +54,16 @@ function HotelDetailPart({ hotelDetail, rating }) {
       <Typography variant="h6">Popular accommodation facilities and features</Typography>
       <Typography variant="h6">
         {hotelDetail?.hotel.features.length > 0 && (
-          <Grid container spacing={2}>
+          <Grid container spacing={isDesktop ? 2 : 0}>
             {/* Left Column */}
             <Grid item xs={6}>
               <List>
                 {hotelDetail?.hotel.features.slice(0, 3).map((feature, index) => (
                   <ListItem key={index}>
                     <ListItemIcon>{featureData[index].icon}</ListItemIcon>
-                    {feature}
+                    <Typography variant={isDesktop ? "h6" : "body1"} fontWeight="bold">
+                      {feature}
+                    </Typography>
                   </ListItem>
                 ))}
               </List>
@@ -71,7 +75,9 @@ function HotelDetailPart({ hotelDetail, rating }) {
                 {hotelDetail?.hotel.features.slice(3, 6).map((feature, index) => (
                   <ListItem key={index + 3}>
                     <ListItemIcon>{featureData[index + 3].icon}</ListItemIcon>
-                    {feature}
+                    <Typography variant={isDesktop ? "h6" : "body1"} fontWeight="bold">
+                      {feature}
+                    </Typography>
                   </ListItem>
                 ))}
               </List>

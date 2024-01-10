@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 // Services
 import ratingCalculator from "../../services/RatingCalculator";
 
+// Context
+import { AuthContext } from "../../context/Authentication";
+
 function HotelInfo({
   id,
   name,
@@ -24,10 +27,11 @@ function HotelInfo({
   features,
 }) {
   const navigate = useNavigate();
+  const { isDesktop } = React.useContext(AuthContext);
 
   return (
     <Stack
-      flexDirection="row"
+      flexDirection={isDesktop ? "row" : "column"}
       sx={{
         border: "1px solid #E0E0E0",
         borderRadius: "10px",
@@ -38,20 +42,20 @@ function HotelInfo({
         src={image}
         alt="Hotel"
         style={{
-          width: "490px",
+          width: isDesktop ? "490px" : "340px",
           maxHeight: "270px",
           backgroundColor: "#E0E0E0",
           objectFit: "contain",
           borderRadius: "10px",
-          borderTopRightRadius: "0px",
-          borderBottomRightRadius: "0px",
+          borderTopRightRadius: isDesktop ? "0px" : "10px",
+          borderBottomRightRadius: isDesktop ? "0px" : "10px",
           cursor: "pointer",
         }}
         onClick={() => {
           navigate(`/hotel/${id}`);
         }}
       />
-      <Stack padding={2} width="100%">
+      <Stack padding={2} width={isDesktop ? "100%" : "300px"}>
         <Typography
           variant="h5"
           sx={{

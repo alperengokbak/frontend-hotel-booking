@@ -7,6 +7,9 @@ import { Button, Stack } from "@mui/material";
 // Axios
 import axios from "axios";
 
+// Context
+import { AuthContext } from "../../context/Authentication";
+
 // Components
 import DestinationSelector from "./DestinationSelector";
 import DateSelector from "./DateSelector";
@@ -16,6 +19,7 @@ import GuestRoomSelector from "./GuestRoomSelector";
 import { useNavigate } from "react-router-dom";
 
 function HomePageSearchComponent() {
+  const { isDesktop } = React.useContext(AuthContext);
   const [hotel, setHotel] = React.useState([]);
   const [destination, setDestination] = React.useState("");
   const [entryDate, setEntryDate] = React.useState("");
@@ -48,9 +52,9 @@ function HomePageSearchComponent() {
   return (
     <Stack
       sx={{
-        flexDirection: "row",
+        flexDirection: isDesktop ? "row" : "column",
         justifyContent: "space-between",
-        alignItems: "center",
+        alignItems: isDesktop ? "center" : "flex-start",
       }}
     >
       <DestinationSelector destination={destination} setDestination={setDestination} />
@@ -62,7 +66,6 @@ function HomePageSearchComponent() {
         setSelectedRooms={setSelectedRooms}
       />
       <Button
-        variant="body1"
         type="submit"
         sx={{
           cursor: "pointer",

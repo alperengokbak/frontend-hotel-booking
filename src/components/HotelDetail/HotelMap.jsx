@@ -1,6 +1,9 @@
 // React and React Router DOM
 import React from "react";
 
+// Context
+import { AuthContext } from "../../context/Authentication";
+
 // Google Maps
 import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow } from "@vis.gl/react-google-maps";
 
@@ -8,6 +11,7 @@ import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow } from "@vis.gl/react
 import { Stack } from "@mui/material";
 
 function HotelMap({ hotelDetail }) {
+  const { isDesktop } = React.useContext(AuthContext);
   const [showInfoWindow, setShowInfoWindow] = React.useState(false);
   const [position, setPosition] = React.useState({ lat: 0, lng: 0 });
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -45,9 +49,9 @@ function HotelMap({ hotelDetail }) {
     <APIProvider apiKey={apiKey}>
       <Stack
         sx={{
-          width: "600px",
-          height: "600px",
-          marginTop: 15,
+          width: isDesktop ? "600px" : "350px",
+          height: isDesktop ? "600px" : "350px",
+          marginTop: isDesktop ? 15 : 4,
         }}
       >
         <Map zoom={15} center={position} mapId={import.meta.env.VITE_GOOGLE_MAP_ID}>

@@ -1,9 +1,13 @@
 import React from "react";
 
+// Context
+import { AuthContext } from "../../context/Authentication";
+
 // Material UI Components
 import { Stack, FormControl, Select, MenuItem } from "@mui/material";
 
 export default function GuestRoomSelector({ setSelectedGuests, setSelectedRooms, selectedGuests, selectedRooms }) {
+  const { isDesktop } = React.useContext(AuthContext);
   const handleGuestsChange = (event) => {
     setSelectedGuests(event.target.value);
   };
@@ -13,7 +17,7 @@ export default function GuestRoomSelector({ setSelectedGuests, setSelectedRooms,
   };
 
   return (
-    <Stack flexDirection="row">
+    <Stack flexDirection={isDesktop ? "row" : "column"} spacing={isDesktop ? 0 : 1.5} marginBottom={isDesktop ? 0 : 2}>
       <FormControl
         sx={{
           marginRight: "10px",
