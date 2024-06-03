@@ -53,7 +53,7 @@ export default function LoginScreen() {
       password: data.get("password"),
     });
 
-    await fetch("https://booking-hotel-api.onrender.com/customer/login", {
+    await fetch("https://booking-hotel.azurewebsites.net/customer/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

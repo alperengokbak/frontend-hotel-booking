@@ -23,7 +23,7 @@ function HotelDetail() {
 
   const getHotelDetail = async () => {
     try {
-      const response = await axios.get(`https://booking-hotel-api.onrender.com/hotel/${id}`);
+      const response = await axios.get(`https://booking-hotel.azurewebsites.net/hotel/${id}`);
       if (response.status === 200) {
         const jsonData = response.data;
         setHotelDetail(jsonData);
