@@ -2,7 +2,7 @@ export const LoginAuthentication = async () => {
   const token = localStorage.getItem("token");
   if (token) {
     try {
-      const response = await fetch("https://booking-hotel-api.onrender.com/customer/check", {
+      const response = await fetch("https://booking-hotel.azurewebsites.net/customer/check", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
